@@ -8,10 +8,30 @@ import Map from "ol/Map.js";
 import View from "ol/View.js";
 
 import "ol/ol.css";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
+import {GeoJSON} from "ol/format.js";
+import {Stroke, Style, Text} from "ol/style.js";
 
 useGeographic()
 
-const layers = [new TileLayer({ source: new OSM()})];
+const layers = [new TileLayer({ source: new OSM()}),
+new VectorLayer({
+    source: new VectorSource({
+        url: "/geojson/kommuner.geojson",
+        format: new GeoJSON(),
+    }),
+    style: f => new Style({
+        stroke: new Stroke({
+            width: 3,
+            color: "#FF69B4"
+        }),
+        text: new Text({
+            text: f.getProperties()["name"],
+        }),
+    })
+ }),
+];
 const map = new Map({
     view: new View({center: [10.7, 59.9], zoom: 8}),
     layers,
