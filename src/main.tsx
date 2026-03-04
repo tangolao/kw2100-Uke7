@@ -31,6 +31,12 @@ new VectorLayer({
         }),
     })
  }),
+    new VectorLayer({
+        source: new VectorSource({
+            url: "/api/grunnskole",
+            format: new GeoJSON(),
+        })
+    })
 ];
 const map = new Map({
     view: new View({center: [10.7, 59.9], zoom: 8}),
