@@ -1,0 +1,49 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+// @ts-ignore
+import { createRoot } from "react-dom/client";
+import { useEffect, useRef } from "react";
+import TileLayer from "ol/layer/Tile.js";
+import { OSM } from "ol/source.js";
+import { useGeographic } from "ol/proj.js";
+import Map from "ol/Map.js";
+import View from "ol/View.js";
+import "ol/ol.css";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
+import { GeoJSON } from "ol/format.js";
+import { Stroke, Style, Text } from "ol/style.js";
+useGeographic();
+const layers = [new TileLayer({ source: new OSM() }),
+    new VectorLayer({
+        source: new VectorSource({
+            url: "/geojson/kommuner.geojson",
+            format: new GeoJSON(),
+        }),
+        style: (f) => new Style({
+            stroke: new Stroke({
+                width: 3,
+                color: "#FF69B4"
+            }),
+            text: new Text({
+                text: f.getProperties()["name"],
+            }),
+        })
+    }),
+    new VectorLayer({
+        source: new VectorSource({
+            url: "/api/grunnskole",
+            format: new GeoJSON(),
+        })
+    })
+];
+const map = new Map({
+    view: new View({ center: [10.7, 59.9], zoom: 8 }),
+    layers,
+});
+function Application() {
+    const mapRef = useRef(null);
+    useEffect(() => map.setTarget(mapRef.current), []);
+    return _jsx("div", { ref: mapRef, children: "A map Application" });
+}
+createRoot(document.getElementById("app")).render(_jsx(Application, {}));
+//# sourceMappingURL=main.js.map

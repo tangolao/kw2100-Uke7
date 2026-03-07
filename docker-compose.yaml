@@ -1,0 +1,14 @@
+services:
+  postgis:
+    image: postgis/postgis:15-3.4
+    container_name: postgis
+    platform: linux/amd64
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+      # Feilen skyldes at Mac M2 bruker ARM64-arkitektur,
+      # mens Docker-imaget ikke har støtte for linux/arm64.
+      # Derfor må vi spesifisere platform: linux/amd64.
