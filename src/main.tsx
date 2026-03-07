@@ -21,7 +21,7 @@ new VectorLayer({
         url: "/geojson/kommuner.geojson",
         format: new GeoJSON(),
     }),
-    style: f => new Style({
+    style: (f) => new Style({
         stroke: new Stroke({
             width: 3,
             color: "#FF69B4"
