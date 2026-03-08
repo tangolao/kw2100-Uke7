@@ -12,7 +12,7 @@ app.get("/api/grunnskoler", async (c) => {
                 select skolenavn, 
                        antallelever, 
                        organisasjonsnummer, 
-                       posisjon 
+                       posisjon::json
                 from grunnskoler_eacac061675b438687e28fbd6f60bf68.grunnskole`);
     return c.json(result.rows);
 });
