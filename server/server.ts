@@ -8,8 +8,12 @@ const postgres = new pg.Pool({
 const app = new Hono();
 
 app.get("/api/grunnskoler", async (c) => {
-    const result = await postgres.query("select * from grunnskoler_eacac061675b438687e28fbd6f60bf68.grunnskole");
-    return c.json(result);
+    const result = await postgres.query(`
+                select skolenavn, 
+                       antallelever, 
+                       organisasjonsnummer, 
+                       posisjon 
+                from grunnskoler_eacac061675b438687e28fbd6f60bf68.grunnskole`);
+    return c.json(result.rows);
 });
-
 serve(app);
