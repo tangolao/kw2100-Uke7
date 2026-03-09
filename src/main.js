@@ -31,7 +31,7 @@ const layers = [new TileLayer({ source: new OSM() }),
     }),
     new VectorLayer({
         source: new VectorSource({
-            url: "/api/grunnskole",
+            url: "/api/grunnskoler",
             format: new GeoJSON(),
         })
     })
