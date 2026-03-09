@@ -12,6 +12,10 @@ import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
 import { GeoJSON } from "ol/format.js";
 import { Stroke, Style, Text } from "ol/style.js";
+import proj4 from "proj4";
+import { register } from "ol/proj/proj4.js";
+proj4.defs("EPSG:25833", "+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
+register(proj4);
 useGeographic();
 const layers = [new TileLayer({ source: new OSM() }),
     new VectorLayer({
@@ -32,7 +36,10 @@ const layers = [new TileLayer({ source: new OSM() }),
     new VectorLayer({
         source: new VectorSource({
             url: "/api/grunnskoler",
-            format: new GeoJSON(),
+            format: new GeoJSON({
+                dataProjection: "EPSG:25833",
+                featureProjection: "EPSG:4326"
+            }),
         })
     })
 ];

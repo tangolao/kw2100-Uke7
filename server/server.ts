@@ -13,7 +13,7 @@ app.get("/api/grunnskoler", async (c) => {
                        eierforhold,
                        antallelever,
                        organisasjonsnummer,
-                       ST_AsGeoJSON(posisjon)::json as geometry
+                       ST_AsGeoJSON(ST_Transform(posisjon,4326))::json as geometry
                 from grunnskoler_26f23a96d4914f1dbde464c9bd921e8c.grunnskole`);
     return c.json({
         type: "FeatureCollection",

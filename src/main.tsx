@@ -43,7 +43,7 @@ new VectorLayer({
         source: new VectorSource({
             url: "/api/grunnskoler",
             format: new GeoJSON({
-                dataProjection: "EPSG:25833",
+                dataProjection: "EPSG:4326",
                 featureProjection: "EPSG:4326"
             }),
         })
